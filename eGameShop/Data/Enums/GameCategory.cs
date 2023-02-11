@@ -8,5 +8,5 @@
         Symulator,
         Przygodowa,
         Inna
-    }
+    }    
 }
