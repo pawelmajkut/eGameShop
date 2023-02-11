@@ -78,7 +78,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Movies}/{action=Index}/{id?}");
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
 //Seed database
