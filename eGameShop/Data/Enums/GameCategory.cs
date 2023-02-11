@@ -1,4 +1,4 @@
-﻿namespace eGameShop.Data
+﻿namespace eGameShop.Data.Enums
 {
     public enum GameCategory
     {

@@ -10,5 +10,8 @@ namespace eGameShop.Models
         public string ProfilePictureURL { get; set; }
         public string FullName { get; set; }
         public string Description { get; set; }
+
+        //Relationships
+        public List<Game> Games { get; set;}
     }
 }
