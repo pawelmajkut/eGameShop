@@ -13,10 +13,10 @@ namespace eGameShop.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var allGames = await _context.Games.ToListAsync();
-            return View();
+            var allGames =_context.Games.ToList();
+            return View(allGames);
         }
     }
 }
