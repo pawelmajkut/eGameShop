@@ -13,18 +13,24 @@ namespace eGameShop.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Display(Name = "Name of Game")]
         public string Name { get; set; }
+
 		[Display(Name = "Description of Game")]
 		public string Description { get; set; }
+
 		[Display(Name = "Image of Game")]
 		public string ImageURL { get; set; }
+
 		[Display(Name = "Price")]
 		public double Price { get; set; }
         public DateTime StartOfSale { get; set; } //początek daty sprzedaży gry
         public DateTime EndOfSale { get; set; } //koniec daty sprzedaży gry
-        public int Quantity { get; set; } //ilość kopii  
-        public GameCategory GameCategory { get; set; }
+		[Display(Name = "Quantity")]
+		public int Quantity { get; set; } //ilość kopii
+		[Display(Name = "Game Category")]
+		public GameCategory GameCategory { get; set; }
         //public string Producer { get; set; }
 
         //Relationships

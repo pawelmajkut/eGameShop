@@ -1,4 +1,5 @@
 ﻿using eGameShop.Data;
+using eGameShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
