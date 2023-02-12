@@ -82,7 +82,7 @@ app.UseEndpoints(endpoints =>
 });
 
 //Seed database
-//AppDbInitializer.Seed(app);
+AppDbInitializer.Seed(app);
 //AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
 
 //app.UseHttpsRedirection();

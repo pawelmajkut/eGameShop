@@ -220,8 +220,33 @@ namespace eGameShop.Data
                 //Producers & Games
                 if (!context.Producers_Games.Any())
                 {
+                    context.Producers_Games.AddRange(new List<Producer_Game>()
+                    {
+                    new Producer_Game()
+                    {
+                        GameId = 1,
+                        ProducerId = 2
+                    },
+                    new Producer_Game()
+                    {
+                        GameId = 2,
+                        ProducerId = 3
+                    },
+                    new Producer_Game()
+                    {
+                        GameId = 3,
+                        ProducerId = 4 
+                    },
+                    new Producer_Game()
+                    {
+                        GameId = 4,
+                        ProducerId = 1
+                    },
 
-                }
+                    });
+
+                context.SaveChanges();
+            }
 
 
             }
