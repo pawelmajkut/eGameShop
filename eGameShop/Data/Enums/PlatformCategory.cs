@@ -4,7 +4,7 @@
     {
         PC = 1,
         XBOX,
-        Switch,
+        Nintendo,
         PS5
     }
 }
