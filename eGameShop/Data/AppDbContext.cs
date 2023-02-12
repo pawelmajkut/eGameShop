@@ -29,7 +29,7 @@ namespace eGameShop.Data
         public DbSet<Producer> Producers { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Producer_Game> Producers_Games { get; set; }
-        public DbSet<Publisher> Publisher { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<DistributionPlatform> DistributionPlatforms { get; set; }  
 
