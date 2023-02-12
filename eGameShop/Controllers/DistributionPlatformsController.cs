@@ -16,7 +16,7 @@ namespace eGameShop.Controllers
         public async Task<IActionResult> Index()
         {
             var allDistributionPlatforms = await _context.DistributionPlatforms.ToListAsync();
-            return View();
+            return View(allDistributionPlatforms);
         }
     }
 }
