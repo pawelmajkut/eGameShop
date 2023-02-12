@@ -1,16 +1,22 @@
 ﻿using eGameShop.Data.Enums;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace eGameShop.Models
 {
     public class Game
-    {   [Key]
+    {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string ImageURL { get; set; }    
-        public double Price { get; set; }  
+        public string ImageURL { get; set; }
+        public double Price { get; set; }
         public DateTime StartOfSale { get; set; } //początek daty sprzedaży gry
         public DateTime EndOfSale { get; set; } //koniec daty sprzedaży gry
         public int Quantity { get; set; } //ilość kopii  
@@ -23,19 +29,21 @@ namespace eGameShop.Models
         //DistributionPlatform
         public int DistributionPlatformId { get; set; }
         [ForeignKey("DistributionPlatformId")]
-        public string DistributionPlatform { get; set; } //nazwa platformy na którą jest grą (Stem , GOG, Blizzard)
+        public DistributionPlatform DistributionPlatform { get; set; } //nazwa platformy na którą jest grą (Steam , GOG, Blizzard)
 
         //Platform
         public int PlatformId { get; set; }
         [ForeignKey("PlatformId")]
-        public PlatformCategory Platform { get; set; } //nazwa platformy na jaką jest grą (PC, XBOX, PS5)
+        public Platform Platform { get; set; } //nazwa platformy na jaką jest grą (PC, XBOX, PS5)
 
-        //Producer
-        public int ProducerId { get; set; }
-        [ForeignKey("ProducerId")]
-        public string Producer { get; set; } //producent gry
+        //public Platform Platform { get; set; } 
+
+        ////Producer
+        public int PublisherId { get; set; }
+        [ForeignKey("PublisherId")]
+        public Publisher Publisher { get; set; } //producent gry
 
 
-
+    
     }
 }

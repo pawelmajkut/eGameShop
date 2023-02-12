@@ -12,8 +12,8 @@ using eGameShop.Data;
 namespace eGameShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230212170034_NameFixPublishers")]
-    partial class NameFixPublishers
+    [Migration("20230212191558_First1")]
+    partial class First1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,10 +62,6 @@ namespace eGameShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DistributionPlatform")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("DistributionPlatformId")
                         .HasColumnType("int");
 
@@ -83,23 +79,13 @@ namespace eGameShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Platform")
-                        .HasColumnType("int");
-
                     b.Property<int>("PlatformId")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<string>("Producer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProducerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PublisherId")
+                    b.Property<int>("PublisherId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -211,21 +197,29 @@ namespace eGameShop.Migrations
 
             modelBuilder.Entity("eGameShop.Models.Game", b =>
                 {
-                    b.HasOne("eGameShop.Models.DistributionPlatform", null)
+                    b.HasOne("eGameShop.Models.DistributionPlatform", "DistributionPlatform")
                         .WithMany("Games")
                         .HasForeignKey("DistributionPlatformId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("eGameShop.Models.Platform", null)
+                    b.HasOne("eGameShop.Models.Platform", "Platform")
                         .WithMany("Games")
                         .HasForeignKey("PlatformId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("eGameShop.Models.Publisher", null)
+                    b.HasOne("eGameShop.Models.Publisher", "Publisher")
                         .WithMany("Games")
-                        .HasForeignKey("PublisherId");
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DistributionPlatform");
+
+                    b.Navigation("Platform");
+
+                    b.Navigation("Publisher");
                 });
 
             modelBuilder.Entity("eGameShop.Models.Producer_Game", b =>

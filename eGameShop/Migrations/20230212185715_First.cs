@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace eGameShop.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class First : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,7 +57,7 @@ namespace eGameShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Publisher",
+                name: "Publishers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -68,7 +68,7 @@ namespace eGameShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Publisher", x => x.Id);
+                    table.PrimaryKey("PK_Publishers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,17 +80,13 @@ namespace eGameShop.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
                     StartOfSale = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndOfSale = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     GameCategory = table.Column<int>(type: "int", nullable: false),
                     DistributionPlatformId = table.Column<int>(type: "int", nullable: false),
-                    DistributionPlatform = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PlatformId = table.Column<int>(type: "int", nullable: false),
-                    Platform = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProducerId = table.Column<int>(type: "int", nullable: false),
-                    Producer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublisherId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -109,9 +105,9 @@ namespace eGameShop.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Games_Publisher_PublisherId",
+                        name: "FK_Games_Publishers_PublisherId",
                         column: x => x.PublisherId,
-                        principalTable: "Publisher",
+                        principalTable: "Publishers",
                         principalColumn: "Id");
                 });
 
@@ -179,7 +175,7 @@ namespace eGameShop.Migrations
                 name: "Platforms");
 
             migrationBuilder.DropTable(
-                name: "Publisher");
+                name: "Publishers");
         }
     }
 }

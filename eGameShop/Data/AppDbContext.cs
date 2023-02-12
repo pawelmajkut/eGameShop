@@ -22,6 +22,8 @@ namespace eGameShop.Data
 
             modelBuilder.Entity<Producer_Game>().HasOne(g => g.Producer).WithMany(pg => pg.Producers_Games).HasForeignKey(g => g.ProducerId);
 
+            
+
 
             base.OnModelCreating(modelBuilder);
         }

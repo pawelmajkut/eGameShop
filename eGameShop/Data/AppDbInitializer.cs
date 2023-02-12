@@ -119,69 +119,6 @@ namespace eGameShop.Data
                     });
                     context.SaveChanges();
                 }
-                //Game
-                if (!context.Games.Any())
-                {
-                    context.Games.AddRange(new List<Game>()
-                    {
-                        new Game()
-                        {
-                        Name = "Hollow Knight",
-                        Description = "Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes. " +
-                        "Explore twisting caverns, battle tainted creatures and befriend bizarre bugs, all in a classic, hand-drawn 2D style.",
-                        ImageURL = "https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg?t=1667006028",
-                        Price = 12.99,
-                        StartOfSale = DateTime.Now.AddDays(-12),
-                        EndOfSale = DateTime.Now.AddDays(-2),
-                        Quantity = 55,
-                        GameCategory = GameCategory.Przygodowa,
-                        Platform = PlatformCategory.PC,
-                        },
-                        new Game()
-                        {
-                        Name = "Call of Duty: World at War",
-                        Description = "Call of Duty is back, redefining war like you've never experienced before. " +
-                        "Building on the Call of Duty 4®: Modern Warfare engine, " +
-                        "Call of Duty: World at War immerses players into the most gritty and chaotic WWII combat ever experienced.",
-                        ImageURL = "https://cdn.akamai.steamstatic.com/steam/apps/10090/header.jpg?t=1654830025",
-                        Price = 25.99,
-                        StartOfSale = DateTime.Now.AddDays(-18),
-                        EndOfSale = DateTime.Now.AddDays(-3),
-                        Quantity = 31,
-                        GameCategory = GameCategory.Strzelanka,
-                        Platform = PlatformCategory.PC,
-                        },
-                        new Game()
-                        {
-                        Name = "Among US",
-                        Description = "An online and local party game of teamwork and betrayal for 4-15 players...in space",
-                        ImageURL = "https://cdn.akamai.steamstatic.com/steam/apps/945360/header.jpg?t=1673370035",
-                        Price = 5.99,
-                        StartOfSale = DateTime.Now.AddDays(-11),
-                        EndOfSale = DateTime.Now.AddDays(-4),
-                        Quantity = 13,
-                        GameCategory = GameCategory.Akcja,
-                        Platform = PlatformCategory.PS5,
-                        },
-                        new Game()
-                        {
-                        Name = "Hades",
-                        Description = "Defy the god of the dead as you hack and slash out of the Underworld " +
-                        "in this rogue-like dungeon crawler from the creators of Bastion, Transistor, and Pyre.",
-                        ImageURL = "https://cdn.akamai.steamstatic.com/steam/apps/1145360/header.jpg?t=1670649855",
-                        Price = 29.99,
-                        StartOfSale = DateTime.Now.AddDays(-19),
-                        EndOfSale = DateTime.Now.AddDays(-1),
-                        Quantity = 18,
-                        GameCategory = GameCategory.Akcja,
-                        Platform = PlatformCategory.XBOX,
-                        },
-                                                
-                });
-
-
-                    context.SaveChanges();
-                }
                 //Producer
                 if (!context.Producers.Any())
                 {
@@ -217,6 +154,78 @@ namespace eGameShop.Data
 
                     context.SaveChanges();
                 }
+                //Game
+                if (!context.Games.Any())
+                {
+                    context.Games.AddRange(new List<Game>()
+                    {
+                        new Game()
+                        {
+                        Name = "Hollow Knight",
+                        Description = "Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes. " +
+                        "Explore twisting caverns, battle tainted creatures and befriend bizarre bugs, all in a classic, hand-drawn 2D style.",
+                        ImageURL = "https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg?t=1667006028",
+                        Price = 12.99,
+                        StartOfSale = DateTime.Now.AddDays(-12),
+                        EndOfSale = DateTime.Now.AddDays(-2),
+                        Quantity = 55,
+                        GameCategory = GameCategory.Przygodowa,
+                        PlatformId = 1,
+                        DistributionPlatformId = 1,
+                        PublisherId = 3
+                        },
+                        new Game()
+                        {
+                        Name = "Call of Duty: World at War",
+                        Description = "Call of Duty is back, redefining war like you've never experienced before. " +
+                        "Building on the Call of Duty 4®: Modern Warfare engine, " +
+                        "Call of Duty: World at War immerses players into the most gritty and chaotic WWII combat ever experienced.",
+                        ImageURL = "https://cdn.akamai.steamstatic.com/steam/apps/10090/header.jpg?t=1654830025",
+                        Price = 25.99,
+                        StartOfSale = DateTime.Now.AddDays(-18),
+                        EndOfSale = DateTime.Now.AddDays(-3),
+                        Quantity = 31,
+                        GameCategory = GameCategory.Strzelanka,
+                        PlatformId = 2,
+                        DistributionPlatformId = 2,
+                        PublisherId = 2
+                        },
+                        new Game()
+                        {
+                        Name = "Among US",
+                        Description = "An online and local party game of teamwork and betrayal for 4-15 players...in space",
+                        ImageURL = "https://cdn.akamai.steamstatic.com/steam/apps/945360/header.jpg?t=1673370035",
+                        Price = 5.99,
+                        StartOfSale = DateTime.Now.AddDays(-11),
+                        EndOfSale = DateTime.Now.AddDays(-4),
+                        Quantity = 13,
+                        GameCategory = GameCategory.Akcja,
+                        PlatformId = 3,
+                        DistributionPlatformId = 4,
+                        PublisherId = 1
+                        },
+                        new Game()
+                        {
+                        Name = "Hades",
+                        Description = "Defy the god of the dead as you hack and slash out of the Underworld " +
+                        "in this rogue-like dungeon crawler from the creators of Bastion, Transistor, and Pyre.",
+                        ImageURL = "https://cdn.akamai.steamstatic.com/steam/apps/1145360/header.jpg?t=1670649855",
+                        Price = 29.99,
+                        StartOfSale = DateTime.Now.AddDays(-19),
+                        EndOfSale = DateTime.Now.AddDays(-1),
+                        Quantity = 18,
+                        GameCategory = GameCategory.Akcja,
+                        PlatformId = 4,
+                        DistributionPlatformId = 5,
+                        PublisherId = 4
+                        },
+                                                
+                });
+
+
+                    context.SaveChanges();
+                }
+                
                 //Producers & Games
                 if (!context.Producers_Games.Any())
                 {
