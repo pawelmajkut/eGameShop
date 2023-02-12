@@ -7,9 +7,12 @@ namespace eGameShop.Models
         [Key]
         public int Id { get; set; }
 
-        public string ProfilePictureURL { get; set; }
-        public string FullName { get; set; }
-        public string Description { get; set; }  
+		[Display(Name = "ProfilePictureURL")]
+		public string ProfilePictureURL { get; set; }
+		[Display(Name = "FullName")]
+		public string FullName { get; set; }
+		[Display(Name = "Description")]
+		public string Description { get; set; }  
 
         //Relationships
         public List<Producer_Game> Producers_Games { get; set; } 

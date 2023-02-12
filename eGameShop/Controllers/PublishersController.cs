@@ -1,5 +1,6 @@
 ﻿using eGameShop.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eGameShop.Controllers
 {
@@ -12,10 +13,10 @@ namespace eGameShop.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            var data = _context.Publishers.ToList(); 
-            return View();
-        }
-    }
+		public async Task<IActionResult> Index()
+		{
+			var allPublishers = await _context.Publishers.ToListAsync();
+			return View(allPublishers);
+		}
+	}
 }
