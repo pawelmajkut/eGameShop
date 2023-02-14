@@ -20,20 +20,19 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @item.Name
-                                    @*@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                                    {
+                                    @*@if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) *@
+                                    
                                         <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
-                                    }*@
+                                   
                                 </h5>
                             </p>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <img src="@item.ImageURL" width="100%" alt="@item.Name">
+                        <img src="@item.ImageURL" width="100%" alt="@item.Name" class="mt-5">
                     </div>
                     <div class="col-md-6">
                         <div class="card-body">
-                           @*<p class="card-text">@item.Description</p>*@
                             <p class="card-text"><b>Name: </b>@item.Name</p>
                             <p class="card-text"><b>Category: </b>@item.GameCategory</p>
                             <p class="card-text"><b>Start Of Sale: </b>@item.StartOfSale.ToString("dd MMM yy")</p>
@@ -52,9 +51,13 @@
                                 {
                                     <span class="badge bg-primary text-white">UPCOMING</span>
                                 }
-                            </p>
-
-                        </div>
+                            
+                            </p>  
+                         </div>  
+                    </div>
+                    <div class="col-12">
+                        <p class="card-text p-3">@item.Description</p> 
+                        
                     </div>
                     <div class="col-md-12">
                         <div class="card-footer ">
