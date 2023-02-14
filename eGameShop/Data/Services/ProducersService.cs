@@ -12,7 +12,8 @@ namespace eGameShop.Data.Services
         }
         public void Add(Producer producer)
         {
-            throw new NotImplementedException();
+            _context.Producers.Add(producer);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
