@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using eGameShop.Data;
+using eGameShop.Data.Base;
 
 namespace eGameShop.Models
 {
-    public class Producer
+    public class Producer:IEntityBase
     {
         [Key]
         public int Id { get; set; }

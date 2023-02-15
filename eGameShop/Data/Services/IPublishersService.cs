@@ -3,7 +3,7 @@ using eGameShop.Models;
 
 namespace eGameShop.Data.Services
 {
-    public interface IProducersService:IEntityBaseRepository<Producer>
+    public interface IPublishersService : IEntityBaseRepository<Publisher>
     {
 
         //Task<IEnumerable<Producer>> GetAllAsync();

@@ -4,12 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eGameShop.Data.Services
 {
-    public class ProducersService : EntityBaseRepository<Producer>, IProducersService
+    public class PublishersService : EntityBaseRepository<Publisher>, IPublishersService
     {
-
-
-        private readonly AppDbContext _context;
-        public ProducersService(AppDbContext context) : base(context) { }
+                
+        public PublishersService(AppDbContext context) : base(context) { }
 
         //private readonly AppDbContext _context;
         //public ProducersService(AppDbContext context)
