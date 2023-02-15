@@ -4,14 +4,14 @@ namespace eGameShop.Data.Services
 {
     public interface IProducersService
     {
-        Task<IEnumerable<Producer>> GetAll();
+        Task<IEnumerable<Producer>> GetAllAsync();
 
-        Producer GetById(int id);
+        Task<Producer> GetByIdAsync(int id);
 
-        void Add(Producer producer);
+        Task AddAsync(Producer producer);
 
-        Producer Update(int id, Producer newProducer); 
+        Task<Producer> UpdateAsync(int id, Producer newProducer); 
 
-        void Delete(int id);    
+        Task DeleteAsync(int id);    
     }
 }

@@ -10,31 +10,36 @@ namespace eGameShop.Data.Services
         {
             _context = context;
         }
-        public void Add(Producer producer)
+        public async Task AddAsync(Producer producer)
         {
-            _context.Producers.Add(producer);
-            _context.SaveChanges();
+            await _context.Producers.AddAsync(producer);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Producers.FirstOrDefaultAsync(n => n.Id == id);
+            _context.Producers.Remove(result);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Producer>> GetAll()
+        public async Task<IEnumerable<Producer>> GetAllAsync()
         {
             var result = await _context.Producers.ToListAsync();
             return result;
         }
 
-        public Producer GetById(int id)
+        public async Task<Producer> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Producers.FirstOrDefaultAsync(n => n.Id == id);
+            return result;  
         }
 
-        public Producer Update(int id, Producer newProducer)
+        public async Task<Producer> UpdateAsync(int id, Producer newProducer)
         {
-            throw new NotImplementedException();
+            _context.Update(newProducer);
+            await _context.SaveChangesAsync();
+            return newProducer;
         }
     }
 }
