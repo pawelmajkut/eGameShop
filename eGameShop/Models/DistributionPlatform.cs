@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eGameShop.Data.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace eGameShop.Models
 {
-    public class DistributionPlatform
-    {
+    public class DistributionPlatform : IEntityBase
+	{
         [Key]
         public int Id { get; set; }
 

@@ -30,7 +30,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 
 builder.Services.AddScoped<IProducersService, ProducersService>();
 builder.Services.AddScoped<IPublishersService, PublishersService>();
-//builder.Services.AddScoped<ICinemasService, CinemasService>();
+builder.Services.AddScoped<IPlatformsService, PlatformsService>();
 //builder.Services.AddScoped<IMoviesService, MoviesService>();
 //builder.Services.AddScoped<IOrdersService, OrdersService>();
 

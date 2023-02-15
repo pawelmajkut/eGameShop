@@ -6,11 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using eGameShop.Data.Base;
 
 namespace eGameShop.Models
 {
-    public class Game
-    {
+    public class Game : IEntityBase
+	{
         [Key]
         public int Id { get; set; }
 
