@@ -14,7 +14,42 @@ namespace eGameShop.Data.Services
             _context = context;
         }
 
-        public async Task<Game> GetGameByIdAsync(int id)
+        public async Task AddNewGameAsync(NewGameVM data)
+        {
+            var newGame = new Game()
+            {
+                Name = data.Name,
+                Description = data.Description,
+                ImageURL = data.ImageURL,
+                Price = data.Price,
+                StartOfSale = data.StartOfSale,
+                EndOfSale = data.EndOfSale,
+                Quantity = data.Quantity,
+                GameCategory = data.GameCategory,
+                DistributionPlatformId = data.DistributionPlatformId,
+                PlatformId = data.PlatformId,
+                PublisherId = data.PublisherId
+            };
+            await _context.Games.AddAsync(newGame);
+            await _context.SaveChangesAsync();
+
+            //Add Producers
+            foreach (var producerId in data.ProducerIds) 
+            {
+                var newProducerGame = new Producer_Game()
+                {
+                    GameId = newGame.Id,
+                    ProducerId = producerId
+                };
+
+                await _context.Producers_Games.AddAsync(newProducerGame);
+				
+
+			}
+			await _context.SaveChangesAsync();
+		}    
+
+		public async Task<Game> GetGameByIdAsync(int id)
         {
             var gameDetails = await _context.Games
                 .Include(pu => pu.Publisher)

@@ -9,6 +9,8 @@ namespace eGameShop.Data.Services
         Task<Game> GetGameByIdAsync(int id);
         Task<NewGameDropdownsVM> GetNewGameDropdownsValues();
 
+        Task AddNewGameAsync(NewGameVM data);
+
         //Task<IEnumerable<Producer>> GetAllAsync();
 
         //Task<Producer> GetByIdAsync(int id);

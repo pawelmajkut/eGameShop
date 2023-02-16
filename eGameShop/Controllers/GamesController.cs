@@ -40,80 +40,99 @@ namespace eGameShop.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([Bind("Logo,Name,Description")] Game game)
-        {
+		[HttpPost]
+		public async Task<IActionResult> Create(NewGameVM game)
+		{
+			if (!ModelState.IsValid)
+			{
+				var gameDropdownsData = await _service.GetNewGameDropdownsValues();
 
-            if (ModelState.IsValid)
-            {
-                return View(game);
-            }
-            else
-            {
-                await _service.AddAsync(game);
-                return RedirectToAction(nameof(Index));
-            }
+				ViewBag.DistributionPlatforms = new SelectList(gameDropdownsData.DistributionPlatforms, "Id", "Name");
+				ViewBag.Producers = new SelectList(gameDropdownsData.Producers, "Id", "FullName");
+				ViewBag.Publishers = new SelectList(gameDropdownsData.Publishers, "Id", "FullName");
+				ViewBag.Platforms = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
 
-        }
+				return View(game);
+			}
 
+			await _service.AddNewGameAsync(game);
+			return RedirectToAction(nameof(Index));
+		}
 
-        //Get: Games/Details/1
+		//[HttpPost]
+		//public async Task<IActionResult> Create([Bind("Logo,Name,Description")] Game game)
+		//{
 
-        public async Task<IActionResult> Details(int id)
-        {
-            var gameDetails = await _service.GetGameByIdAsync(id);
-            return View(gameDetails);
+		//    if (ModelState.IsValid)
+		//    {
+		//        return View(game);
+		//    }
+		//    else
+		//    {
+		//        await _service.AddAsync(game);
+		//        return RedirectToAction(nameof(Index));
+		//    }
 
-                        
-        }
-
-
-        //Get: Games/Edit/1
-        public async Task<IActionResult> Edit(int id)
-        {
-            var gameDetails = await _service.GetByIdAsync(id);
-
-            if (gameDetails == null) return View("NotFound");
-            return View(gameDetails);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Logo,Name,Description")] Game game)
-        {
-
-            if (ModelState.IsValid)
-            {
-                return View(game);
-            }
-            else
-            {
-                await _service.UpdateAsync(id, game);
-                return RedirectToAction(nameof(Index));
-            }
-
-        }
-
-        //Get: Games/Delete/1
-        public async Task<IActionResult> Delete(int id)
-        {
-            var gameDetails = await _service.GetByIdAsync(id);
-
-            if (gameDetails == null) return View("NotFound");
-            return View(gameDetails);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var gameDetails = await _service.GetByIdAsync(id);
-
-            if (gameDetails == null) return View("NotFound");
-
-            await _service.DeleteAsync(id);
-
-            return RedirectToAction(nameof(Index));
+		//}
 
 
-        }
-    }
+		//Get: Games/Details/1
+
+		public async Task<IActionResult> Details(int id)
+		{
+			var gameDetails = await _service.GetGameByIdAsync(id);
+			return View(gameDetails);
+
+
+		}
+
+
+		////Get: Games/Edit/1
+		//public async Task<IActionResult> Edit(int id)
+		//{
+		//    var gameDetails = await _service.GetByIdAsync(id);
+
+		//    if (gameDetails == null) return View("NotFound");
+		//    return View(gameDetails);
+		//}
+
+		//[HttpPost]
+		//public async Task<IActionResult> Edit(int id, [Bind("Id,Logo,Name,Description")] Game game)
+		//{
+
+		//    if (ModelState.IsValid)
+		//    {
+		//        return View(game);
+		//    }
+		//    else
+		//    {
+		//        await _service.UpdateAsync(id, game);
+		//        return RedirectToAction(nameof(Index));
+		//    }
+
+		//}
+
+		////Get: Games/Delete/1
+		//public async Task<IActionResult> Delete(int id)
+		//{
+		//    var gameDetails = await _service.GetByIdAsync(id);
+
+		//    if (gameDetails == null) return View("NotFound");
+		//    return View(gameDetails);
+		//}
+
+		//[HttpPost, ActionName("Delete")]
+		//public async Task<IActionResult> DeleteConfirmed(int id)
+		//{
+		//    var gameDetails = await _service.GetByIdAsync(id);
+
+		//    if (gameDetails == null) return View("NotFound");
+
+		//    await _service.DeleteAsync(id);
+
+		//    return RedirectToAction(nameof(Index));
+
+
+		//}
+	}
 }
