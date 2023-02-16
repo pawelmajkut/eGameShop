@@ -30,12 +30,12 @@ namespace eGameShop.Controllers
         //Get: Games/Create
         public async Task<IActionResult> Create()
         {
-            //    var gameDropdownsData = await _service.GetNewGameDropdownsValues();
+               var gameDropdownsData = await _service.GetNewGameDropdownsValues();
 
-            //    ViewBag.DistributionPlatforms = new SelectList(movieDropdownsData.DistributionPlatforms, "Id", "Name");
-            //    ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "Id", "FullName");
-            //    ViewBag.Publisher = new SelectList(movieDropdownsData.Publisher, "Id", "FullName");
-            //    ViewBag.Platforms = new SelectList(movieDropdownsData.Platforms, "Id", "Name");
+                ViewBag.DistributionPlatforms = new SelectList(gameDropdownsData.DistributionPlatforms, "Id", "Name");
+                ViewBag.Producers = new SelectList(gameDropdownsData.Producers, "Id", "FullName");
+                ViewBag.Publishers = new SelectList(gameDropdownsData.Publishers, "Id", "FullName");
+                ViewBag.Platforms = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
 
             return View();
         }

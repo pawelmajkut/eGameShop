@@ -53,9 +53,10 @@
 
 		</div>
 	</div>
-<div style="position: fixed; right: 45px; bottom: 85px" class="tex-white">
+@*<div style="position: fixed; right: 45px; bottom: 85px" class="tex-white">
 	<a asp-controller="Platforms" asp-action="Create" class="btn btn-success"> <i class="bi bi-plus-circle"></i>Add New</a>
-</div>
+</div>*@
+@await Html.PartialAsync("_CreateItem", "Platforms")
 	@*Define ViewData*@
 
 	@*Write Code*@

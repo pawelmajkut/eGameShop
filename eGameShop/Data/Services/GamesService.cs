@@ -1,4 +1,5 @@
 ﻿using eGameShop.Data.Base;
+using eGameShop.Data.ViewModels;
 using eGameShop.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,20 @@ namespace eGameShop.Data.Services
 
 
 
+
+        }
+
+        public async Task<NewGameDropdownsVM> GetNewGameDropdownsValues()
+        {
+            var response = new NewGameDropdownsVM()
+            {
+            Producers = await _context.Producers.OrderBy(n => n.FullName).ToListAsync(),
+            DistributionPlatforms = await _context.DistributionPlatforms.OrderBy(n => n.Name).ToListAsync(),
+            Platforms = await _context.Platforms.OrderBy(n => n.Name).ToListAsync(),
+            Publishers = await _context.Publishers.OrderBy(n => n.FullName).ToListAsync()
+            };
+
+            return response;
 
         }
 
