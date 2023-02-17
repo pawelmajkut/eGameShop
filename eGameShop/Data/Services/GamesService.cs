@@ -33,7 +33,7 @@ namespace eGameShop.Data.Services
             await _context.Games.AddAsync(newGame);
             await _context.SaveChangesAsync();
 
-            //Add Producers
+            //Add Game Producers
             foreach (var producerId in data.ProducerIds) 
             {
                 var newProducerGame = new Producer_Game()
@@ -79,42 +79,41 @@ namespace eGameShop.Data.Services
 
         }
 
-        //private readonly AppDbContext _context;
-        //public ProducersService(AppDbContext context)
-        //{
-        //    _context = context;
-        //}
+        public async Task UpdateGameAsync(NewGameVM data)
+        {
+            var dbGame = await _context.Games.FirstOrDefaultAsync(n => n.Id == data.Id);
 
-        ////public async Task AddAsync(Producer producer)
-        ////{
-        ////    await _context.Producers.AddAsync(producer);
-        ////    await _context.SaveChangesAsync();
-        ////}
+            if (dbGame != null)
+            {
+                dbGame.Name = data.Name;
+                dbGame.Description = data.Description;
+                dbGame.Price = data.Price;
+                dbGame.ImageURL = data.ImageURL;
+                dbGame.PublisherId = data.PublisherId;
+                dbGame.StartOfSale = data.StartOfSale;
+                dbGame.EndOfSale = data.EndOfSale;
+                dbGame.GameCategory = data.GameCategory;
+                dbGame.DistributionPlatformId = data.DistributionPlatformId;
+                await _context.SaveChangesAsync();
+            }
 
-        //public async Task DeleteAsync(int id)
-        //{
-        //    var result = await _context.Producers.FirstOrDefaultAsync(n => n.Id == id);
-        //    _context.Producers.Remove(result);
-        //    await _context.SaveChangesAsync();
-        //}
+            //Remove existing producers
+            var existingProducersDb = _context.Producers_Games.Where(n => n.GameId == data.Id).ToList();
+            _context.Producers_Games.RemoveRange(existingProducersDb);
+            await _context.SaveChangesAsync();
 
-        //public async Task<IEnumerable<Producer>> GetAllAsync()
-        //{
-        //    var result = await _context.Producers.ToListAsync();
-        //    return result;
-        //}
+            //Add Game Producers
+            foreach (var producerId in data.ProducerIds)
+            {
+                var newProducerGame = new Producer_Game()
+                {
+                    GameId = data.Id,
+                    ProducerId = producerId
+                };
+                await _context.Producers_Games.AddAsync(newProducerGame);
+            }
+            await _context.SaveChangesAsync();
+        }
 
-        //public async Task<Producer> GetByIdAsync(int id)
-        //{
-        //    var result = await _context.Producers.FirstOrDefaultAsync(n => n.Id == id);
-        //    return result;  
-        //}
-
-        //public async Task<Producer> UpdateAsync(int id, Producer newProducer)
-        //{
-        //    _context.Update(newProducer);
-        //    await _context.SaveChangesAsync();
-        //    return newProducer;
-        //}
     }
 }

@@ -12,9 +12,9 @@ namespace eGameShop.Models
 {
     public class NewGameVM
 	{
-       
 
-        
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Name is required!")]
         [Display(Description = "Game name")]
         public string Name { get; set; }

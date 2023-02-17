@@ -11,14 +11,8 @@ namespace eGameShop.Data.Services
 
         Task AddNewGameAsync(NewGameVM data);
 
-        //Task<IEnumerable<Producer>> GetAllAsync();
+        Task UpdateGameAsync(NewGameVM data);
 
-        //Task<Producer> GetByIdAsync(int id);
-
-        //Task AddAsync(Producer producer);
-
-        //Task<Producer> UpdateAsync(int id, Producer newProducer); 
-
-        //Task DeleteAsync(int id);    
+          
     }
 }

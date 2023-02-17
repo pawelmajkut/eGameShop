@@ -1,9 +1,12 @@
 ﻿using eGameShop.Data;
+using eGameShop.Data.Enums;
 using eGameShop.Data.Services;
 using eGameShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace eGameShop.Controllers
 {
@@ -15,17 +18,78 @@ namespace eGameShop.Controllers
         {
             _service = service;
         }
-        //public IActionResult Index()
-        //{
-        //    var allPlatforms = _context.Platforms.ToList();
-        //    return View();
-        //}
-
+        
         public async Task<IActionResult> Index()
         {
             var allGames = await _service.GetAllAsync(n => n.Publisher);  /// nie jestem tego pewny - czy napewno Publisher ???
             return View(allGames);
         }
+
+        [AllowAnonymous]
+        //public async Task<IActionResult> Filter(string searchString)
+        //{
+        //    var allGames = await _service.GetAllAsync(n => n.Publisher);
+
+        //    if (!string.IsNullOrEmpty(searchString))
+        //    {
+        //        //var filteredResult = allMovies.Where(n => n.Name.ToLower().Contains(searchString.ToLower()) || n.Description.ToLower().Contains(searchString.ToLower())).ToList();
+
+        //        var filteredResultNew = allGames.Where(n => string.Equals(n.Name, searchString, StringComparison.CurrentCultureIgnoreCase) || string.Equals(n.Description, searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+        //        return View("Index", filteredResultNew);
+        //    }
+
+        //    return View("Index", allGames);
+        //}
+
+
+        public async Task<IActionResult> Filter(string searchString, int pageNumber = 1, int pageSize = 10)
+        {
+            var allGames = await _service.GetAllAsync(n => n.Publisher);
+
+            //if (!string.IsNullOrEmpty(searchString))
+            //{
+            //    var regex = new Regex(@"[\s\p{P}]");
+            //    var searchWords = regex.Split(searchString.ToLower());
+
+            //    var filteredResult = allGames
+            //        .Where(n => searchWords.All(w =>
+            //            n.Name.ToLower().Contains(w) ||
+            //            n.Description.ToLower().Contains(w)))
+            //        .Skip((pageNumber - 1) * pageSize)
+            //        .Take(pageSize)
+            //        .ToList();
+
+            //    return View("Index", filteredResult);
+            //}
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var regex = new Regex(@"[\s\p{P}]");
+                var searchWords = regex.Split(searchString.ToLower());
+
+                var filteredResult = allGames
+                    .Where(n => searchWords.All(w =>
+                        n.Name.ToLower().Contains(w) ||
+                        n.Description.ToLower().Contains(w) ||
+                        n.GameCategory.ToString().ToLower().Contains(w)))
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                return View("Index", filteredResult);
+            }
+
+            var pagedResult = allGames
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return View("Index", pagedResult);
+        }
+
+
+
 
         //Get: Games/Create
         public async Task<IActionResult> Create()
@@ -59,80 +123,69 @@ namespace eGameShop.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-		//[HttpPost]
-		//public async Task<IActionResult> Create([Bind("Logo,Name,Description")] Game game)
-		//{
-
-		//    if (ModelState.IsValid)
-		//    {
-		//        return View(game);
-		//    }
-		//    else
-		//    {
-		//        await _service.AddAsync(game);
-		//        return RedirectToAction(nameof(Index));
-		//    }
-
-		//}
-
-
+		
 		//Get: Games/Details/1
 
 		public async Task<IActionResult> Details(int id)
 		{
 			var gameDetails = await _service.GetGameByIdAsync(id);
 			return View(gameDetails);
-
-
 		}
 
 
-		////Get: Games/Edit/1
-		//public async Task<IActionResult> Edit(int id)
-		//{
-		//    var gameDetails = await _service.GetByIdAsync(id);
+        //GET: Movies/Edit/1
+        public async Task<IActionResult> Edit(int id)
+        {
+            var gameDetails = await _service.GetGameByIdAsync(id);
+            if (gameDetails == null) return View("NotFound");
 
-		//    if (gameDetails == null) return View("NotFound");
-		//    return View(gameDetails);
-		//}
+            var response = new NewGameVM()
+            {
+                Id = gameDetails.Id,
+                Name = gameDetails.Name,
+                Description = gameDetails.Description,
+                ImageURL = gameDetails.ImageURL,
+                Price = gameDetails.Price,
+                StartOfSale = gameDetails.StartOfSale,
+                EndOfSale = gameDetails.EndOfSale,
+                Quantity = gameDetails.Quantity,
+                GameCategory = gameDetails.GameCategory,
+                DistributionPlatformId = gameDetails.DistributionPlatformId,
+                PlatformId = gameDetails.PlatformId,
+                PublisherId = gameDetails.PublisherId,
+                ProducerIds=gameDetails.Producers_Games.Select(n=>n.ProducerId).ToList(),
 
-		//[HttpPost]
-		//public async Task<IActionResult> Edit(int id, [Bind("Id,Logo,Name,Description")] Game game)
-		//{
+            };
 
-		//    if (ModelState.IsValid)
-		//    {
-		//        return View(game);
-		//    }
-		//    else
-		//    {
-		//        await _service.UpdateAsync(id, game);
-		//        return RedirectToAction(nameof(Index));
-		//    }
+            var gameDropdownsData = await _service.GetNewGameDropdownsValues();
 
-		//}
+            ViewBag.DistributionPlatforms = new SelectList(gameDropdownsData.DistributionPlatforms, "Id", "Name");
+            ViewBag.Producers = new SelectList(gameDropdownsData.Producers, "Id", "FullName");
+            ViewBag.Publishers = new SelectList(gameDropdownsData.Publishers, "Id", "FullName");
+            ViewBag.Platforms = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
+            
+            return View(response);
+        }
 
-		////Get: Games/Delete/1
-		//public async Task<IActionResult> Delete(int id)
-		//{
-		//    var gameDetails = await _service.GetByIdAsync(id);
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, NewGameVM game)
+        {
+            if (id != game.Id) return View("NotFound");
 
-		//    if (gameDetails == null) return View("NotFound");
-		//    return View(gameDetails);
-		//}
+            if (!ModelState.IsValid)
+            {
+                var gameDropdownsData = await _service.GetNewGameDropdownsValues();
 
-		//[HttpPost, ActionName("Delete")]
-		//public async Task<IActionResult> DeleteConfirmed(int id)
-		//{
-		//    var gameDetails = await _service.GetByIdAsync(id);
+                ViewBag.DistributionPlatforms = new SelectList(gameDropdownsData.DistributionPlatforms, "Id", "Name");
+                ViewBag.Producers = new SelectList(gameDropdownsData.Producers, "Id", "FullName");
+                ViewBag.Publishers = new SelectList(gameDropdownsData.Publishers, "Id", "FullName");
+                ViewBag.Platforms = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
 
-		//    if (gameDetails == null) return View("NotFound");
+                return View(game);
+            }
 
-		//    await _service.DeleteAsync(id);
-
-		//    return RedirectToAction(nameof(Index));
-
-
-		//}
-	}
+            await _service.UpdateGameAsync(game);
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }
