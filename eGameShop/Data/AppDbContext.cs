@@ -35,8 +35,8 @@ namespace eGameShop.Data
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<DistributionPlatform> DistributionPlatforms { get; set; }  
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }    
-
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
 
 

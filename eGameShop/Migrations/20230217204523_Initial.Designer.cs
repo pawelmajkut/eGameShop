@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eGameShop.Data;
 
@@ -11,9 +12,11 @@ using eGameShop.Data;
 namespace eGameShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230217204523_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,11 +147,16 @@ namespace eGameShop.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GameId");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("OrderItems");
                 });
@@ -246,31 +254,6 @@ namespace eGameShop.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("eGameShop.Models.ShoppingCartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShoppingCartId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GameId");
-
-                    b.ToTable("ShoppingCartItems");
-                });
-
             modelBuilder.Entity("eGameShop.Models.Game", b =>
                 {
                     b.HasOne("eGameShop.Models.DistributionPlatform", "DistributionPlatform")
@@ -307,10 +290,14 @@ namespace eGameShop.Migrations
                         .IsRequired();
 
                     b.HasOne("eGameShop.Models.Order", "Order")
-                        .WithMany("OrderItems")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("eGameShop.Models.Order", null)
+                        .WithMany("OrderItems")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Game");
 
@@ -334,17 +321,6 @@ namespace eGameShop.Migrations
                     b.Navigation("Game");
 
                     b.Navigation("Producer");
-                });
-
-            modelBuilder.Entity("eGameShop.Models.ShoppingCartItem", b =>
-                {
-                    b.HasOne("eGameShop.Models.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("eGameShop.Models.DistributionPlatform", b =>
