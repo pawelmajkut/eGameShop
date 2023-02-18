@@ -13,7 +13,7 @@ namespace eGameShop.Data.Services
 
         public async Task<List<Order>> GetOrdersByUserIdAsync(string userId)
         {
-            var orders = await _context.Orders.Include(n => n.OrderItems).ThenInclude(n => n.Game).ToListAsync();
+            var orders = await _context.Orders.Include(n => n.OrderItems).ThenInclude(n => n.Game).Where(n => n.UserId == userId).ToListAsync();
                      
 
             return orders;
