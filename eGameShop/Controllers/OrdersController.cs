@@ -9,7 +9,7 @@ using System.Data;
 
 namespace eGameShop.Controllers
 {
-    [Authorize(Roles = UserRoles.Admin)]
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IGamesService _gamesService;
