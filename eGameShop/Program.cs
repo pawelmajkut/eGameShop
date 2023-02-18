@@ -18,6 +18,7 @@ using Microsoft.Extensions.Hosting;
 using eGameShop.Models;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using eGameShop.Data.Services;
+using eGameShop.Data.Cart;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,10 +34,10 @@ builder.Services.AddScoped<IPublishersService, PublishersService>();
 builder.Services.AddScoped<IPlatformsService, PlatformsService>();
 builder.Services.AddScoped<IDistributionPlatformsService, DistributionPlatformsService>();
 builder.Services.AddScoped<IGamesService, GamesService>();
-//builder.Services.AddScoped<IOrdersService, OrdersService>();
+builder.Services.AddScoped<IOrdersService, OrdersService>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-//builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
 //Authentication and authorization
 //builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();

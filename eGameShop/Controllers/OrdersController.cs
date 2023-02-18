@@ -9,9 +9,8 @@ namespace eGameShop.Controllers
 {
     public class OrdersController : Controller
     {
-        [Authorize]
-        public class OrdersController : Controller
-        {
+        
+        
             private readonly IGamesService _gamesService;
             private readonly ShoppingCart _shoppingCart;
             private readonly IOrdersService _ordersService;
@@ -28,7 +27,7 @@ namespace eGameShop.Controllers
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 string userRole = User.FindFirstValue(ClaimTypes.Role);
 
-                var orders = await _ordersService.GetOrdersByUserIdAndRoleAsync(userId, userRole);
+                var orders = await _ordersService.GetOrdersByUserIdAsync(userId);
                 return View(orders);
             }
 
@@ -79,6 +78,6 @@ namespace eGameShop.Controllers
 
                 return View("OrderCompleted");
             }
-        }
+        
     }
 }
