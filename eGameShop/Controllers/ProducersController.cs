@@ -1,26 +1,24 @@
 ﻿using eGameShop.Data;
 using eGameShop.Data.Services;
 using eGameShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace eGameShop.Controllers
 {
+    [Authorize]
     public class ProducersController : Controller
     {
+        
         private readonly IProducersService _service;
 
         public ProducersController(IProducersService service)
         {
             _service = service;
         }
-        //public IActionResult Index()
-        //{
-        //    var allProducers = _context.Producers.ToList();
-        //    return View();
-        //}
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allProducers = await _service.GetAllAsync();
@@ -51,7 +49,7 @@ namespace eGameShop.Controllers
 
 
         //Get: Producers/Details/1
-
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var producerDetails = await _service.GetByIdAsync(id);
@@ -104,10 +102,8 @@ namespace eGameShop.Controllers
 
             await _service.DeleteAsync(id);
                       
-            return RedirectToAction(nameof(Index));
-            
+            return RedirectToAction(nameof(Index));    
 
         }
-
     }
 }

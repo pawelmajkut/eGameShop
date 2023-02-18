@@ -290,11 +290,12 @@ namespace eGameShop.Data
                 {
                     var newAdminUser = new ApplicationUser()
                     {
+                        FullName = "Admin User",
                         UserName = "admin",
                         Email = "admin@game.com",
                         EmailConfirmed = true
                     };
-                    await userManager.CreateAsync(newAdminUser, "game123!@");
+                    await userManager.CreateAsync(newAdminUser, "Game123!@");
                     await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
                 }
 
@@ -306,11 +307,12 @@ namespace eGameShop.Data
                 {
                     var newAppUser = new ApplicationUser()
                     {
+
                         UserName = "Appuser",
                         Email = "user@game.com",
                         EmailConfirmed = true
                     };
-                    await userManager.CreateAsync(newAppUser, "game123!@");
+                    await userManager.CreateAsync(newAppUser, "Game123!@");
                     await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
                 }
             }

@@ -1,12 +1,14 @@
 ﻿using eGameShop.Data;
 using eGameShop.Data.Services;
 using eGameShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace eGameShop.Controllers
 {
+    [Authorize]
     public class PublishersController : Controller
     {
         private readonly IPublishersService _service;
@@ -16,7 +18,7 @@ namespace eGameShop.Controllers
         {
             _service = service;
         }
-
+        [AllowAnonymous]
 		public async Task<IActionResult> Index()
 		{
 			var allPublishers = await _service.GetAllAsync();
@@ -32,7 +34,6 @@ namespace eGameShop.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create([Bind("ProfilePictureURL,FullName,Description")] Publisher publisher)
 		{
-
 			if (ModelState.IsValid)
 			{
 				return View(publisher);
@@ -45,9 +46,9 @@ namespace eGameShop.Controllers
 
 		}
 
-		//Get: Publishers/Details/1
-
-		public async Task<IActionResult> Details(int id)
+        //Get: Publishers/Details/1
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
         {
             var publisherDetails = await _service.GetByIdAsync(id);
 
@@ -101,9 +102,6 @@ namespace eGameShop.Controllers
 
             return RedirectToAction(nameof(Index));
 
-
         }
-
-
     }
 }
