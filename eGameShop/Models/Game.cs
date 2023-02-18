@@ -47,7 +47,6 @@ namespace eGameShop.Models
         [ForeignKey("PlatformId")]
         public Platform Platform { get; set; } //nazwa platformy na jaką jest grą (PC, XBOX, PS5)
 
-        //public Platform Platform { get; set; } 
 
         ////Producer
         public int PublisherId { get; set; }

@@ -96,10 +96,10 @@ namespace eGameShop.Data
                     {
                         new Publisher()
                         {
-							FullName = "Innersloth",
-							ProfilePictureURL = "https://scontent-waw1-1.xx.fbcdn.net/v/t1.6435-9/38405269_516502942106419_9099963392919076864_n.png?_nc_cat=106&ccb=1-7&_nc_sid=174925&_nc_ohc=aUyaBYqcgFkAX8ZAq7X&_nc_ht=scontent-waw1-1.xx&oh=00_AfD2za3lxmAJ4y78_YDKaZjuUkqERSp9kUFGcg7fnF-35w&oe=6410D227",
-							Description = "Innersloth Studio"
-						},
+                            FullName = "Innersloth",
+                            ProfilePictureURL = "https://scontent-waw1-1.xx.fbcdn.net/v/t1.6435-9/38405269_516502942106419_9099963392919076864_n.png?_nc_cat=106&ccb=1-7&_nc_sid=174925&_nc_ohc=aUyaBYqcgFkAX8ZAq7X&_nc_ht=scontent-waw1-1.xx&oh=00_AfD2za3lxmAJ4y78_YDKaZjuUkqERSp9kUFGcg7fnF-35w&oe=6410D227",
+                            Description = "Innersloth Studio"
+                        },
                         new Publisher()
                         {
                             FullName = "Activision",
@@ -108,16 +108,16 @@ namespace eGameShop.Data
                         },
                         new Publisher()
                         {
-							FullName = "Team Cherry",
-							ProfilePictureURL = "https://scontent-waw1-1.xx.fbcdn.net/v/t39.30808-6/308129047_415753044006702_8201576346294109732_n.png?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=hbZSf0ev8R4AX_6RV4B&_nc_ht=scontent-waw1-1.xx&oh=00_AfDlnwU1RzBHTLpDXXewfWm20XTN6LwWGPHJeXIvZULZ9A&oe=63EF2D3E",
-							Description = "Team Cherry Studio"
-						},
+                            FullName = "Team Cherry",
+                            ProfilePictureURL = "https://scontent-waw1-1.xx.fbcdn.net/v/t39.30808-6/308129047_415753044006702_8201576346294109732_n.png?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=hbZSf0ev8R4AX_6RV4B&_nc_ht=scontent-waw1-1.xx&oh=00_AfDlnwU1RzBHTLpDXXewfWm20XTN6LwWGPHJeXIvZULZ9A&oe=63EF2D3E",
+                            Description = "Team Cherry Studio"
+                        },
                         new Publisher()
                         {
-							FullName = "Supergiant Games",
-							ProfilePictureURL = "https://images.ctfassets.net/5owu3y35gz1g/515iBuHUzspUUF0fVrrTsR/919af2bab70c70204c423070ecb2c06a/logo_sg_final2.png?w=250&h=96&q=50&fit=fill",
-							Description = "Supergiant Games Studio"
-						},
+                            FullName = "Supergiant Games",
+                            ProfilePictureURL = "https://images.ctfassets.net/5owu3y35gz1g/515iBuHUzspUUF0fVrrTsR/919af2bab70c70204c423070ecb2c06a/logo_sg_final2.png?w=250&h=96&q=50&fit=fill",
+                            Description = "Supergiant Games Studio"
+                        },
                     });
                     context.SaveChanges();
                 }
@@ -221,13 +221,13 @@ namespace eGameShop.Data
                         DistributionPlatformId = 5,
                         PublisherId = 4
                         },
-                                                
+
                 });
 
 
                     context.SaveChanges();
                 }
-                
+
                 //Producers & Games
                 if (!context.Producers_Games.Any())
                 {
@@ -246,7 +246,7 @@ namespace eGameShop.Data
                     new Producer_Game()
                     {
                         GameId = 3,
-                        ProducerId = 4 
+                        ProducerId = 4
                     },
                     new Producer_Game()
                     {
@@ -256,8 +256,8 @@ namespace eGameShop.Data
 
                     });
 
-                context.SaveChanges();
-            }
+                    context.SaveChanges();
+                }
 
 
             }
@@ -279,7 +279,7 @@ namespace eGameShop.Data
                 {
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
                 }
-                    
+
 
                 //Users
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();

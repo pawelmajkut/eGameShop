@@ -1,6 +1,7 @@
 ﻿using eGameShop.Data;
 using eGameShop.Data.Enums;
 using eGameShop.Data.Services;
+using eGameShop.Data.Static;
 using eGameShop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace eGameShop.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class GamesController : Controller
     {
         private readonly IGamesService _service;
@@ -18,50 +20,19 @@ namespace eGameShop.Controllers
         {
             _service = service;
         }
-        
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var allGames = await _service.GetAllAsync(n => n.Publisher);  /// nie jestem tego pewny - czy napewno Publisher ???
+            var allGames = await _service.GetAllAsync(n => n.Publisher);
             return View(allGames);
         }
 
+
         [AllowAnonymous]
-        //public async Task<IActionResult> Filter(string searchString)
-        //{
-        //    var allGames = await _service.GetAllAsync(n => n.Publisher);
-
-        //    if (!string.IsNullOrEmpty(searchString))
-        //    {
-        //        //var filteredResult = allMovies.Where(n => n.Name.ToLower().Contains(searchString.ToLower()) || n.Description.ToLower().Contains(searchString.ToLower())).ToList();
-
-        //        var filteredResultNew = allGames.Where(n => string.Equals(n.Name, searchString, StringComparison.CurrentCultureIgnoreCase) || string.Equals(n.Description, searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
-
-        //        return View("Index", filteredResultNew);
-        //    }
-
-        //    return View("Index", allGames);
-        //}
-
-
         public async Task<IActionResult> Filter(string searchString, int pageNumber = 1, int pageSize = 10)
         {
             var allGames = await _service.GetAllAsync(n => n.Publisher);
-
-            //if (!string.IsNullOrEmpty(searchString))
-            //{
-            //    var regex = new Regex(@"[\s\p{P}]");
-            //    var searchWords = regex.Split(searchString.ToLower());
-
-            //    var filteredResult = allGames
-            //        .Where(n => searchWords.All(w =>
-            //            n.Name.ToLower().Contains(w) ||
-            //            n.Description.ToLower().Contains(w)))
-            //        .Skip((pageNumber - 1) * pageSize)
-            //        .Take(pageSize)
-            //        .ToList();
-
-            //    return View("Index", filteredResult);
-            //}
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -88,50 +59,45 @@ namespace eGameShop.Controllers
             return View("Index", pagedResult);
         }
 
-
-
-
         //Get: Games/Create
         public async Task<IActionResult> Create()
         {
-               var gameDropdownsData = await _service.GetNewGameDropdownsValues();
+            var gameDropdownsData = await _service.GetNewGameDropdownsValues();
+
+            ViewBag.DistributionPlatforms = new SelectList(gameDropdownsData.DistributionPlatforms, "Id", "Name");
+            ViewBag.Producers = new SelectList(gameDropdownsData.Producers, "Id", "FullName");
+            ViewBag.Publishers = new SelectList(gameDropdownsData.Publishers, "Id", "FullName");
+            ViewBag.Platforms = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(NewGameVM game)
+        {
+            if (!ModelState.IsValid)
+            {
+                var gameDropdownsData = await _service.GetNewGameDropdownsValues();
 
                 ViewBag.DistributionPlatforms = new SelectList(gameDropdownsData.DistributionPlatforms, "Id", "Name");
                 ViewBag.Producers = new SelectList(gameDropdownsData.Producers, "Id", "FullName");
                 ViewBag.Publishers = new SelectList(gameDropdownsData.Publishers, "Id", "FullName");
                 ViewBag.Platforms = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
 
-            return View();
+                return View(game);
+            }
+
+            await _service.AddNewGameAsync(game);
+            return RedirectToAction(nameof(Index));
         }
 
-		[HttpPost]
-		public async Task<IActionResult> Create(NewGameVM game)
-		{
-			if (!ModelState.IsValid)
-			{
-				var gameDropdownsData = await _service.GetNewGameDropdownsValues();
-
-				ViewBag.DistributionPlatforms = new SelectList(gameDropdownsData.DistributionPlatforms, "Id", "Name");
-				ViewBag.Producers = new SelectList(gameDropdownsData.Producers, "Id", "FullName");
-				ViewBag.Publishers = new SelectList(gameDropdownsData.Publishers, "Id", "FullName");
-				ViewBag.Platforms = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
-
-				return View(game);
-			}
-
-			await _service.AddNewGameAsync(game);
-			return RedirectToAction(nameof(Index));
-		}
-
-		
-		//Get: Games/Details/1
-
-		public async Task<IActionResult> Details(int id)
-		{
-			var gameDetails = await _service.GetGameByIdAsync(id);
-			return View(gameDetails);
-		}
-
+        //Get: Games/Details/1
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            var gameDetails = await _service.GetGameByIdAsync(id);
+            return View(gameDetails);
+        }
 
         //GET: Movies/Edit/1
         public async Task<IActionResult> Edit(int id)
@@ -153,7 +119,7 @@ namespace eGameShop.Controllers
                 DistributionPlatformId = gameDetails.DistributionPlatformId,
                 PlatformId = gameDetails.PlatformId,
                 PublisherId = gameDetails.PublisherId,
-                ProducerIds=gameDetails.Producers_Games.Select(n=>n.ProducerId).ToList(),
+                ProducerIds = gameDetails.Producers_Games.Select(n => n.ProducerId).ToList(),
 
             };
 
@@ -163,7 +129,7 @@ namespace eGameShop.Controllers
             ViewBag.Producers = new SelectList(gameDropdownsData.Producers, "Id", "FullName");
             ViewBag.Publishers = new SelectList(gameDropdownsData.Publishers, "Id", "FullName");
             ViewBag.Platforms = new SelectList(gameDropdownsData.Platforms, "Id", "Name");
-            
+
             return View(response);
         }
 

@@ -13,6 +13,6 @@ namespace eGameShop.Data.Services
 
         Task UpdateGameAsync(NewGameVM data);
 
-          
+
     }
 }

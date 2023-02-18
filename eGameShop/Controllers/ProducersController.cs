@@ -1,5 +1,6 @@
 ﻿using eGameShop.Data;
 using eGameShop.Data.Services;
+using eGameShop.Data.Static;
 using eGameShop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +9,10 @@ using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace eGameShop.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = UserRoles.Admin)]
     public class ProducersController : Controller
     {
-        
+
         private readonly IProducersService _service;
 
         public ProducersController(IProducersService service)
@@ -34,7 +35,7 @@ namespace eGameShop.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("ProfilePictureURL,FullName,Description")] Producer producer)
         {
-            
+
             if (ModelState.IsValid)
             {
                 return View(producer);
@@ -45,8 +46,7 @@ namespace eGameShop.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-		}
-
+        }
 
         //Get: Producers/Details/1
         [AllowAnonymous]
@@ -54,8 +54,8 @@ namespace eGameShop.Controllers
         {
             var producerDetails = await _service.GetByIdAsync(id);
 
-            if(producerDetails == null) return View("NotFound");
-            return View(producerDetails);   
+            if (producerDetails == null) return View("NotFound");
+            return View(producerDetails);
         }
 
 
@@ -101,8 +101,8 @@ namespace eGameShop.Controllers
             if (producerDetails == null) return View("NotFound");
 
             await _service.DeleteAsync(id);
-                      
-            return RedirectToAction(nameof(Index));    
+
+            return RedirectToAction(nameof(Index));
 
         }
     }

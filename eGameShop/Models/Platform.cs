@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace eGameShop.Models
 {
     public class Platform : IEntityBase
-	{
+    {
         [Key]
         public int Id { get; set; }
 

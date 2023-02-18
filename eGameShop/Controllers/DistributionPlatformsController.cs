@@ -1,11 +1,14 @@
 ﻿using eGameShop.Data;
 using eGameShop.Data.Services;
+using eGameShop.Data.Static;
 using eGameShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace eGameShop.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class DistributionPlatformsController : Controller
     {
         private readonly IDistributionPlatformsService _service;
@@ -14,12 +17,7 @@ namespace eGameShop.Controllers
         {
             _service = service;
         }
-        //public IActionResult Index()
-        //{
-        //    var allPlatforms = _context.Platforms.ToList();
-        //    return View();
-        //}
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allDisPlatforms = await _service.GetAllAsync();
@@ -50,7 +48,7 @@ namespace eGameShop.Controllers
 
 
         //Get: DistributionPlatforms/Details/1
-
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var DisplatformDetails = await _service.GetByIdAsync(id);
@@ -104,7 +102,6 @@ namespace eGameShop.Controllers
             await _service.DeleteAsync(id);
 
             return RedirectToAction(nameof(Index));
-
 
         }
     }

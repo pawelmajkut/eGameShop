@@ -5,33 +5,31 @@
 
 @model IEnumerable<DistributionPlatform>
 
-	@{
+@{
 	ViewData["Title"] = "List of DistributionPlatforms";
-	}
+}
 
-	<div class="row">
+<div class="row">
 	<div class="col-md-10 offset-md-1">
 		@*offset-md-2*@
-			<table class="table">
-				<thead>
-					<tr>
+		<table class="table">
+			<thead>
+				<tr>
 					<th>@Html.DisplayNameFor(model => model.Logo)</th>
-                    <th>@Html.DisplayNameFor(model => model.Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+					<th>@Html.DisplayNameFor(model => model.Name)</th>
+					<th>@Html.DisplayNameFor(model => model.Description)</th>
 					@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 					{
 						<th>Actions</th>
 					}
-					</tr>
-				</thead>
-				<tbody>
+				</tr>
+			</thead>
+			<tbody>
 				@foreach (var item in Model)
 				{
 					<tr>
 						<td class="align-middle">
-							<img src="@item.Logo" alt="@item.Name" style="max-width: 110px; max-height: 110px;"/>
-							
-
+							<img src="@item.Logo" alt="@item.Name" style="max-width: 110px; max-height: 110px;" />
 						</td>
 						<td class="align-middle">
 							@Html.DisplayFor(modelItem => item.Name)
@@ -50,21 +48,21 @@
 
 					</tr>
 				}
-				</tbody>
-				<tr>
-					<td></td>
-				</tr>
-			</table>
+			</tbody>
+			<tr>
+				<td></td>
+			</tr>
+		</table>
 
-		</div>
 	</div>
+</div>
 @*<div style="position: fixed; right: 45px; bottom: 85px" class="tex-white">
 	<a asp-controller="DistributionPlatforms" asp-action="Create" class="btn btn-success"> <i class="bi bi-plus-circle"></i>Add New</a>
 </div>*@
 
 @await Html.PartialAsync("_CreateItem", "DistributionPlatforms")
-	@*Define ViewData*@
+@*Define ViewData*@
 
-	@*Write Code*@
+@*Write Code*@
 
-	@*<h1>Welcom to Games View - Index </h1>*@
+@*<h1>Welcom to Games View - Index </h1>*@

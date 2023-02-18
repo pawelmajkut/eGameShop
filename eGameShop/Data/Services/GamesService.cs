@@ -9,8 +9,8 @@ namespace eGameShop.Data.Services
     {
 
         private readonly AppDbContext _context;
-        public GamesService(AppDbContext context) : base(context) 
-        { 
+        public GamesService(AppDbContext context) : base(context)
+        {
             _context = context;
         }
 
@@ -34,7 +34,7 @@ namespace eGameShop.Data.Services
             await _context.SaveChangesAsync();
 
             //Add Game Producers
-            foreach (var producerId in data.ProducerIds) 
+            foreach (var producerId in data.ProducerIds)
             {
                 var newProducerGame = new Producer_Game()
                 {
@@ -43,13 +43,13 @@ namespace eGameShop.Data.Services
                 };
 
                 await _context.Producers_Games.AddAsync(newProducerGame);
-				
 
-			}
-			await _context.SaveChangesAsync();
-		}    
 
-		public async Task<Game> GetGameByIdAsync(int id)
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Game> GetGameByIdAsync(int id)
         {
             var gameDetails = await _context.Games
                 .Include(pu => pu.Publisher)
@@ -69,10 +69,10 @@ namespace eGameShop.Data.Services
         {
             var response = new NewGameDropdownsVM()
             {
-            Producers = await _context.Producers.OrderBy(n => n.FullName).ToListAsync(),
-            DistributionPlatforms = await _context.DistributionPlatforms.OrderBy(n => n.Name).ToListAsync(),
-            Platforms = await _context.Platforms.OrderBy(n => n.Name).ToListAsync(),
-            Publishers = await _context.Publishers.OrderBy(n => n.FullName).ToListAsync()
+                Producers = await _context.Producers.OrderBy(n => n.FullName).ToListAsync(),
+                DistributionPlatforms = await _context.DistributionPlatforms.OrderBy(n => n.Name).ToListAsync(),
+                Platforms = await _context.Platforms.OrderBy(n => n.Name).ToListAsync(),
+                Publishers = await _context.Publishers.OrderBy(n => n.FullName).ToListAsync()
             };
 
             return response;
