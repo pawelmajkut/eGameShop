@@ -62,7 +62,7 @@
 							<b>Platform: </b>
 							<hr />
 							<div class="column text-center">
-								<img class="border-info rounded-circle" src="@Model.Platform.Logo" style="max-width: 150px" />
+								<img @*class="border-info rounded-circle"*@ src="@Model.Platform.Logo" style="max-width: 110px; max-height: 110px;" />
 								<br />
 								<a asp-controller="Platforms" asp-action="Details" asp-route-id="@Model.PlatformId">
 									@Model.Platform.Name
@@ -76,7 +76,7 @@
 								@foreach (var actor in Model.Producers_Games)
 								{
 									<div class="column text-center">
-										<img class="border-info rounded-circle" src="@actor.Producer.ProfilePictureURL" style="max-width: 150px" />
+										<img @*class="border-info rounded-circle"*@ src="@actor.Producer.ProfilePictureURL" style="max-width: 110px; max-height: 110px;" />
 										<br />
 										<a asp-controller="Producers" asp-action="Details" asp-route-id="@actor.ProducerId">@actor.Producer.FullName</a>
 									</div>
@@ -91,7 +91,6 @@
 							<a class="btn btn-outline-primary float-right" asp-action="Index">
 								Back to List
 							</a>
-							@*<a class="btn btn-success text-white  @((DateTime.Now > Model.EndOfSale) ? "disabled" : "")"*@
 							<a class="btn btn-success text-white @((DateTime.Now > Model.EndOfSale || Model.StartOfSale > DateTime.Now) ? "disabled" : "")"
 							   asp-controller="Orders"
 							   asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> Add to Cart (Price @Model.Price.ToString("c"))</a>
