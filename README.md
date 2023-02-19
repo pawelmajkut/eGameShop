@@ -33,14 +33,14 @@ Aplikacja napisana w języku C# (ASP.NET MVC).
 
 Najważniejsze tabele:
 
-1) Games - tabela zawierająca informacje o danej grze oferowanej w sklepie: nazwa, kategoria, cena, opis itp.
-2) Publishers - tabela zawierająca informacje o wydawcy gry: nazwa, logo, opis
-3) Producers - tabela zawierająca informacje o producencie gry: nazwa, logo, opis
-4) Platforms - tabela zawierająca informacje o plaformie na jaką jest dedykowana gra: nazwa, logo, opis
-5) DistributionPlatforms -tabela zawierająca informacje o platformie która dystrybuuje grę : nazwa, logo, opis
-6) ShoppingCartItems - tabela zawierająca dane o produktach umieszczonych w koszyku klienta,
-7) Orders - tabela zawierająca informacje o użytkowniku składającym zamówienie, 
-8) OrdersItems - tabela zawierająca informacje o złożonych zamówieniach, czyli identyfikator zamówionej gry, ilość kopii, 
+1) **Games** - tabela zawierająca informacje o danej grze oferowanej w sklepie: nazwa, kategoria, cena, opis itp.
+2) **Publishers** - tabela zawierająca informacje o wydawcy gry: nazwa, logo, opis
+3) **Producers** - tabela zawierająca informacje o producencie gry: nazwa, logo, opis
+4) **Platforms** - tabela zawierająca informacje o plaformie na jaką jest dedykowana gra: nazwa, logo, opis
+5) **DistributionPlatforms** -tabela zawierająca informacje o platformie która dystrybuuje grę : nazwa, logo, opis
+6) **ShoppingCartItems** - tabela zawierająca dane o produktach umieszczonych w koszyku klienta,
+7) **Orders** - tabela zawierająca informacje o użytkowniku składającym zamówienie, 
+8) **OrdersItems** - tabela zawierająca informacje o złożonych zamówieniach, czyli identyfikator zamówionej gry, ilość kopii, 
 
 
 ![image](https://user-images.githubusercontent.com/91788789/219945354-bf5d3108-f272-43eb-9cc4-17382304a17b.png)
