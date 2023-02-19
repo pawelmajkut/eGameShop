@@ -49,15 +49,15 @@ Najważniejsze tabele:
 
 # Wygląd aplikacji:
 
-**Wygląd uruchomionej aplikacji:**
+**Wygląd uruchomionej aplikacji - widok administratora:**
 
 ![image](https://user-images.githubusercontent.com/91788789/219944791-26064e46-0ad2-444d-b696-23e46ebb4a80.png)
 
-**Sczegóły gry:**
+**Sczegóły wybranej gry:**
 
 ![image](https://user-images.githubusercontent.com/91788789/219945039-778931f2-271a-4a30-a5d7-920e734830e2.png)
 
-**Wyszukiwanie gry:**
+**Wyszukiwanie gry po nazwie:**
 
 ![image](https://user-images.githubusercontent.com/91788789/219945060-ac9357f6-eb3e-4e92-920c-35ad37301123.png)
 
