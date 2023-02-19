@@ -41,8 +41,8 @@
 							</a>
 						</p>
 						<p class="card-text"><b>Category: </b>@Model.GameCategory</p>
-						<p class="card-text"><b>Start Date: </b>@Model.StartOfSale.ToString("dd MMM yy")</p>
-						<p class="card-text"><b>End Date: </b>@Model.EndOfSale.ToString("dd MMM yy")</p>
+						<p class="card-text"><b>Start Date: </b>@Model.StartOfSale.ToString("dd MMM yyyy")</p>
+						<p class="card-text"><b>End Date: </b>@Model.EndOfSale.ToString("dd MMM yyyy")</p>
 						<p class="card-text ">
 							<b>Status: </b>
 							@if (DateTime.Now >= Model.StartOfSale && DateTime.Now <= Model.EndOfSale)

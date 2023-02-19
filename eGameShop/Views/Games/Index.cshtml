@@ -35,8 +35,8 @@
 						<div class="card-body">
 							<p class="card-text"><b>Name: </b>@item.Name</p>
 							<p class="card-text"><b>Category: </b>@item.GameCategory</p>
-							<p class="card-text"><b>Start Of Sale: </b>@item.StartOfSale.ToString("dd MMM yy")</p>
-							<p class="card-text"><b>End Of Sale: </b>@item.EndOfSale.ToString("dd MMM yy")</p>
+							<p class="card-text"><b>Start Of Sale: </b>@item.StartOfSale.ToString("dd MMM yyyy")</p>
+							<p class="card-text"><b>End Of Sale: </b>@item.EndOfSale.ToString("dd MMM yyyy")</p>
 							<p class="card-text ">
 								<b>Status: </b>
 								@if (DateTime.Now >= item.StartOfSale && DateTime.Now <= item.EndOfSale)
