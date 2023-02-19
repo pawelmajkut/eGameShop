@@ -16,6 +16,16 @@ Aplikacja napisana w języku C# (ASP.NET MVC).
 
 ![image](https://user-images.githubusercontent.com/91788789/219944162-663cf37b-d005-4590-a351-738db3a3618c.png)
 
+4) Stworzeni użytkownicy:
+
+Administrator aplikacji: 
+LOGIN: admin@game.com
+PASSWORD: Game123!@
+
+Uzytkownik standardowy aplikacji: 
+LOGIN: user@game.com
+PASSWORD: Game123!@
+
 **"DefaultConnectionString": " Data Source=NAZWA_KOMPUTERA\\SQLEXPRESS;Initial Catalog=eGameShop;TrustServerCertificate=True;Integrated Security=True;Pooling=False"**
 
 # Zaimplementowane funkcjonalności:
